@@ -31,6 +31,12 @@ info() {
     printf '\e[36m=> %02d:%02d:%02d INFO: %s\e[0m\n' $((SECONDS/3600)) $((SECONDS%3600/60)) $((SECONDS%60)) "$*"
 }
 
+# Verify source path exists and then symlink it to the target path.
+symlink() {
+    test -e "$1" || errex "File not found: $1"
+    ln -fsv "$1" "$2"
+}
+
 # Main function.
 main() {
     info Installing Oh My Zsh
@@ -41,7 +47,19 @@ main() {
     ZSH_CUSTOM="${ZSH_CUSTOM:-"$HOME/.oh-my-zsh/custom"}"
     git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
     git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/so-fancy/diff-so-fancy.git  # Not really a zsh plugin.
-    ln -fsv {"$HERE","$ZSH_CUSTOM"}/themes/robpol86.zsh-theme && wc -c "$_"
+    symlink "$HERE/themes/robpol86.zsh-theme" "$ZSH_CUSTOM/themes/robpol86.zsh-theme"
+
+    info Symlinking dotfiles
+    symlink "$HERE/vimrc" "$HOME/.vimrc"
+    symlink "$HERE/zshrc.sh" "$HOME/.zshrc"
+    symlink "$HERE/zprofile.sh" "$HOME/.zprofile"
+
+    info Install SSH config
+    install -m0700 -d "$HOME/.ssh"
+    symlink "$HERE/ssh_config" "$HOME/.ssh/config"
+
+    info Execute run-once commands
+    # zsh -lc _robpol86_run_once  # TODO embed in this script.
 }
 
 # Main.
