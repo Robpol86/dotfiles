@@ -1,24 +1,13 @@
 #!/usr/bin/env bash
 
-# Boilerplate example bash script.
+# Install dotfiles and changes shell to zsh.
 #
-# Long description goes here. Usually you explain what each of the positional
-# arguments do.
+# For use with GitHub Codespaces as well as local development machines.
 
 set -o errexit  # Exit script if a command fails.
 set -o nounset  # Treat unset variables as errors and exit immediately.
 set -o xtrace  # Print commands before executing them.
 set -o pipefail  # Exit script if pipes fail instead of just the last program.
-
-FLAG_A=false  # true if user specifies -a.
-EXIT_CODE=""  # Switch value if user specifies -c <value>.
-DEBUG=  # true if user specifies -d.
-ERROR=false  # true if user specifies -e.
-SET_E=false  # true if user specifies -E.
-FLAG_H=default  # Switch value if user specifies -H <value>.
-SET_U=false  # true if user specifies -U.
-POS_ARGS_1=  # Value of first positional argument.
-POS_ARGS_2=  # Value of second positional argument.
 
 # Print error to stderr.
 error() {
@@ -43,13 +32,15 @@ info() {
 
 # Main function.
 main() {
-    # Verify ZSH is installed.
+    # Verify Zsh is installed.
     which zsh
 
     # Install Oh My Zsh.
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-    # TODO.
+    # Install Zsh plugins.
+#    [ -n "${ZSH_CUSTOM:-}" ] || errex "Environment variable not set: ZSH_CUSTOM"
+#    git -C "$ZSH_CUSTOM/plugins" clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 }
 
 # Main.
