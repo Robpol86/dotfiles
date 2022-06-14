@@ -32,11 +32,8 @@ info() {
 
 # Main function.
 main() {
-    # Verify Zsh is installed.
-    which zsh
-
     # Install Oh My Zsh.
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     # Install Zsh plugins.
 #    [ -n "${ZSH_CUSTOM:-}" ] || errex "Environment variable not set: ZSH_CUSTOM"
