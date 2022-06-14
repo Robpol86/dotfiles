@@ -41,7 +41,8 @@ main() {
     ZSH_CUSTOM="${ZSH_CUSTOM:-"$HOME/.oh-my-zsh/custom"}"
     git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
     git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/so-fancy/diff-so-fancy.git  # Not really a zsh plugin.
-    ln -fsv {"$HERE","$ZSH_CUSTOM"}/themes/robpol86.zsh-theme && ls -lah "$_"
+    ln -fsv {"$HERE","$ZSH_CUSTOM"}/themes/robpol86.zsh-theme
+    ln -fsv {"$HERE","$ZSH_CUSTOM"}/themes/robpol86.zsh-theme-bad
 }
 
 # Main.
