@@ -36,9 +36,9 @@ main() {
     set -o xtrace  # Print commands before executing them.
 
     info Installing Zsh plugins
-    ZSH_CUSTOM="$(zsh -ic 'echo $ZSH_CUSTOM')"
-    git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
-    git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/so-fancy/diff-so-fancy.git  # Not really a zsh plugin.
+    ZSH="$(zsh -c "printenv ZSH")"
+    git -C "$ZSH/custom/plugins" clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
+    git -C "$ZSH/custom/plugins" clone --depth=1 https://github.com/so-fancy/diff-so-fancy.git  # Not really a zsh plugin.
 }
 
 # Main.
