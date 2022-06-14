@@ -6,7 +6,6 @@
 
 set -o errexit  # Exit script if a command fails.
 set -o nounset  # Treat unset variables as errors and exit immediately.
-#set -o xtrace  # Print commands before executing them.
 set -o pipefail  # Exit script if pipes fail instead of just the last program.
 
 # Print error to stderr.
@@ -34,13 +33,12 @@ info() {
 main() {
     info Installing Oh My Zsh
     RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    set -o xtrace  # Print commands before executing them.
 
-    info Remove me
-    RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-    # Install Zsh plugins.
-#    [ -n "${ZSH_CUSTOM:-}" ] || errex "Environment variable not set: ZSH_CUSTOM"
-#    git -C "$ZSH_CUSTOM/plugins" clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+    info Installing Zsh plugins
+    ZSH_CUSTOM="$(zsh -ic 'echo $ZSH_CUSTOM')"
+    git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
+    git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/so-fancy/diff-so-fancy.git  # Not really a zsh plugin.
 }
 
 # Main.
