@@ -35,6 +35,9 @@ main() {
     info Installing Oh My Zsh
     RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+    info Remove me
+    RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
     # Install Zsh plugins.
 #    [ -n "${ZSH_CUSTOM:-}" ] || errex "Environment variable not set: ZSH_CUSTOM"
 #    git -C "$ZSH_CUSTOM/plugins" clone https://github.com/zsh-users/zsh-syntax-highlighting.git
