@@ -9,13 +9,15 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    container: koalaman/shellcheck
     steps:
 
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Install dependencies
+        run: apt-get update && apt-get install -y shellcheck
 
       - name: ShellCheck
         run: shellcheck *.sh
