@@ -6,8 +6,8 @@ on:
 
 jobs:
 
-  lint:
-    name: Lint
+  sanity:
+    name: Sanity Check
     runs-on: ubuntu-latest
     steps:
 
@@ -19,5 +19,5 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y shellcheck
 
-      - name: ShellCheck
-        run: shellcheck *.sh
+      - name: Run install.sh
+        run: ./install.sh
