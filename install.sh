@@ -8,6 +8,8 @@ set -o errexit  # Exit script if a command fails.
 set -o nounset  # Treat unset variables as errors and exit immediately.
 set -o pipefail  # Exit script if pipes fail instead of just the last program.
 
+HERE="$(dirname "${BASH_SOURCE[0]}")"
+
 # Print error to stderr.
 error() {
     printf '\e[31m=> %02d:%02d:%02d ERROR: %s\e[0m\n' $((SECONDS/3600)) $((SECONDS%3600/60)) $((SECONDS%60)) "$*" >&2
@@ -39,6 +41,7 @@ main() {
     ZSH_CUSTOM="${ZSH_CUSTOM:-"$HOME/.oh-my-zsh/custom"}"
     git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
     git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/so-fancy/diff-so-fancy.git  # Not really a zsh plugin.
+    ln -fsv "$HERE/themes/robpol86.zsh-theme" "$ZSH_CUSTOM/themes/"
 }
 
 # Main.
