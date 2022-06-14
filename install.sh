@@ -8,7 +8,7 @@ set -o errexit  # Exit script if a command fails.
 set -o nounset  # Treat unset variables as errors and exit immediately.
 set -o pipefail  # Exit script if pipes fail instead of just the last program.
 
-HERE="$(dirname "${BASH_SOURCE[0]}")"
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Print error to stderr.
 error() {
