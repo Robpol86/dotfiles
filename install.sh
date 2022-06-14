@@ -6,7 +6,7 @@
 
 set -o errexit  # Exit script if a command fails.
 set -o nounset  # Treat unset variables as errors and exit immediately.
-set -o xtrace  # Print commands before executing them.
+#set -o xtrace  # Print commands before executing them.
 set -o pipefail  # Exit script if pipes fail instead of just the last program.
 
 # Print error to stderr.
@@ -32,7 +32,7 @@ info() {
 
 # Main function.
 main() {
-    # Install Oh My Zsh.
+    info Installing Oh My Zsh
     RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     # Install Zsh plugins.
