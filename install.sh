@@ -43,7 +43,7 @@ symlink() {
 main() {
     if [ -e "$ZSH" ]; then  # OMZ already installed.
         info Setting shell to Zsh
-        command zsh
+        command -v zsh || command "$_"  # Print error if command not found.
         chsh -s "$(command -v zsh)"
     else
         info Installing Oh My Zsh
