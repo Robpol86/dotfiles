@@ -43,8 +43,8 @@ symlink() {
 main() {
     if [ -e "$ZSH" ]; then  # OMZ already installed.
         info Setting shell to Zsh
-        which zsh
-        chsh -s "$(which zsh)"
+        command zsh
+        chsh -s "$(command -v zsh)"
     else
         info Installing Oh My Zsh
         RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
