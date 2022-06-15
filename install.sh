@@ -59,8 +59,7 @@ main() {
     symlink "$HERE/ssh_config" "$HOME/.ssh/config"
 
     info Execute run-once commands
-    symlink "$HERE/dne" "$HOME/dne"  # TODO remove
-    # zsh -lc _robpol86_run_once  # TODO embed in this script.
+    zsh -lc _robpol86_run_once
 }
 
 # Main.
