@@ -8,6 +8,7 @@ set -o errexit  # Exit script if a command fails.
 set -o nounset  # Treat unset variables as errors and exit immediately.
 set -o pipefail  # Exit script if pipes fail instead of just the last program.
 
+CODESPACES="${CODESPACES:-}"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ZSH="${ZSH:-"$HOME/.oh-my-zsh"}"
 ZSH_CUSTOM="${ZSH_CUSTOM:-"$ZSH/custom"}"
@@ -41,13 +42,15 @@ symlink() {
 
 # Main function.
 main() {
-    if [ -e "$ZSH" ]; then  # OMZ already installed.
-        info Setting shell to Zsh
-        command -v zsh || command "$_"  # Print error if command not found.
-        chsh -s "$(command -v zsh)"
-    else
+    command -v zsh || command "$_"  # Print error if zsh command not found.
+    if [ ! -e "$ZSH" ]; then
         info Installing Oh My Zsh
         RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    elif [ -n "$CODESPACES" ]; then
+        info Setting codespace shell to Zsh
+        sudo chsh -s "$(command -v zsh)"
+    else
+        info Oh My Zsh already installed
     fi
     set -o xtrace  # Print commands before executing them.
 
