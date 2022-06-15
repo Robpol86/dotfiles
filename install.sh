@@ -9,6 +9,8 @@ set -o nounset  # Treat unset variables as errors and exit immediately.
 set -o pipefail  # Exit script if pipes fail instead of just the last program.
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ZSH="${ZSH:-"$HOME/.oh-my-zsh"}"
+ZSH_CUSTOM="${ZSH_CUSTOM:-"$ZSH/custom"}"
 
 # Print error to stderr.
 error() {
@@ -39,12 +41,17 @@ symlink() {
 
 # Main function.
 main() {
-    info Installing Oh My Zsh
-    RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    if [ -e "$ZSH" ]; then  # OMZ already installed.
+        info Setting shell to Zsh
+        which zsh
+        chsh -s "$(which zsh)"
+    else
+        info Installing Oh My Zsh
+        RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    fi
     set -o xtrace  # Print commands before executing them.
 
     info Installing Zsh plugins
-    ZSH_CUSTOM="${ZSH_CUSTOM:-"$HOME/.oh-my-zsh/custom"}"
     git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
     git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/so-fancy/diff-so-fancy.git  # Not really a zsh plugin.
     symlink "$HERE/themes/robpol86.zsh-theme" "$ZSH_CUSTOM/themes/robpol86.zsh-theme"
