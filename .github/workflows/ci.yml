@@ -22,14 +22,14 @@ jobs:
     name: Run install.sh
     strategy:
       matrix:
-        preinstall_omz: ["", "true"]
+        preinstall_omz: ["", "preinstall_omz_true"]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y zsh
-      - name: Install OMZ
+      - name: Pre-install OMZ
         if: matrix.preinstall_omz
         run: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
       - name: Run install.sh
