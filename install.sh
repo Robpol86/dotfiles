@@ -50,7 +50,8 @@ main() {
         info Setting codespace shell to Zsh
         sudo chsh -s "$(command -v zsh)"
     else
-        info Oh My Zsh already installed
+        info Setting shell to Zsh
+        chsh -s "$(command -v zsh)"
     fi
     set -o xtrace  # Print commands before executing them.
 
