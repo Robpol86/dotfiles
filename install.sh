@@ -40,8 +40,19 @@ symlink() {
     ln -fsv "$1" "$2"
 }
 
-# Main function.
-main() {
+# Git clone or pull if already cloned.
+clone_or_pull() {
+    url="$1"
+    dir="$2"
+    if [ ! -e "$dir" ]; then
+        git clone --depth=1 "$url" "$dir"
+    else
+        git -C "$dir" pull
+    fi
+}
+
+# Install OMZ.
+do_install_omz() {
     command -v zsh || command "$_"  # Print error if zsh command not found.
     if [ ! -e "$ZSH" ]; then
         info Installing Oh My Zsh
@@ -53,11 +64,16 @@ main() {
         info Setting shell to Zsh
         chsh -s "$(command -v zsh)"
     fi
+}
+
+# Main function.
+main() {
+    do_install_omz
     set -o xtrace  # Print commands before executing them.
 
-    info Installing Zsh plugins
-    git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
-    git -C "$ZSH_CUSTOM/plugins" clone --depth=1 https://github.com/so-fancy/diff-so-fancy.git  # Not really a zsh plugin.
+    info Installing Zsh and Git plugins
+    clone_or_pull https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+    clone_or_pull https://github.com/so-fancy/diff-so-fancy.git "$ZSH_CUSTOM/plugins/diff-so-fancy"  # Not really a zsh plugin.
     symlink "$HERE/themes/robpol86.zsh-theme" "$ZSH_CUSTOM/themes/robpol86.zsh-theme"
 
     info Symlinking dotfiles
