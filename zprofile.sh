@@ -39,3 +39,9 @@ function _robpol86_run_once {
     git config --global color.ui    "true"
     git config --global core.pager  "$HOME/workspace/diff-so-fancy/diff-so-fancy |less --tabs=4 -RFX"
 }
+
+if [ -n "${WSL_DISTRO_NAME:-}" ]; then
+    function open {
+        : # TODO
+    }
+fi
