@@ -33,14 +33,18 @@ if [ $# -eq 0 ]; then
     usage
 fi
 
-# Convert path.
-WINDOWS_PATH="$(wslpath -w "$*")"
-
 # Reveal in explorer.
 if [ "$REVEAL" = true ]; then
-    /mnt/c/Windows/explorer.exe "/select," "$WINDOWS_PATH" || true  # TODO https://github.com/microsoft/WSL/issues/6565
+    windows_path="$(wslpath -w "$*")"
+    /mnt/c/Windows/explorer.exe "/select," "$windows_path" || true  # TODO https://github.com/microsoft/WSL/issues/6565
     exit 0
 fi
 
 # Open file/link with https://github.com/wslutilities/wslu.
-wslview "$WINDOWS_PATH"
+if windows_path="$(wslpath -w "$*" 2>/dev/null)"; then
+    # Is file and it exists.
+    wslview "$windows_path"
+else
+    # Might be link, wslview will fail if it's a file/dir that doesn't exist.
+    wslview "$*"
+fi
