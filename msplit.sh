@@ -92,7 +92,8 @@ next_keyframe() {
     local search_end; search_end="$(bc <<< "$timestamp + $KEYFRAME_FORWARD_SEARCH")"
     local -a keyframes; keyframes=($(
         ffprobe -read_intervals "$timestamp%$search_end" "$FILE_PATH" -select_streams v:0 -show_entries \
-            frame=key_frame,pkt_pts_time -of csv=print_section=0 -hide_banner 2>/dev/null |grep -Po '(?<=^1,)[0-9.]+$'
+            frame=key_frame,pkt_pts_time,pts_time -of csv=print_section=0 -hide_banner 2>/dev/null |
+            grep -Po '(?<=^1,)[0-9.]+$'
     ))
     [ ${#keyframes[@]} -ne 0 ] || error "No keyframes between $(hms "$timestamp") and $(hms "$search_end")"
 
