@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+# Similar to macOS's open command.
+#
 # Usage: open [-R] FILE_DIR_OR_LINK
 #        open -h
 #
@@ -41,4 +43,10 @@ if [ "$REVEAL" = true ]; then
 fi
 
 # Open file/link with https://github.com/wslutilities/wslu.
-wslview "$*"
+if windows_path="$(wslpath -w "$*" 2>/dev/null)"; then
+    # Is file and it exists.
+    wslview "$windows_path"
+else
+    # Might be link, wslview will fail if it's a file/dir that doesn't exist.
+    wslview "$*"
+fi
