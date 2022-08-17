@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+# Similar to macOS's open command.
+#
 # Usage: open [-R] FILE_DIR_OR_LINK
 #        open -h
 #
