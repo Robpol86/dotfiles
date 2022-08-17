@@ -33,12 +33,14 @@ if [ $# -eq 0 ]; then
     usage
 fi
 
+# Convert path.
+WINDOWS_PATH="$(wslpath -w "$*")"
+
 # Reveal in explorer.
 if [ "$REVEAL" = true ]; then
-    windows_path="$(wslpath -w "$*")"
-    /mnt/c/Windows/explorer.exe "/select," "$windows_path" || true  # TODO https://github.com/microsoft/WSL/issues/6565
+    /mnt/c/Windows/explorer.exe "/select," "$WINDOWS_PATH" || true  # TODO https://github.com/microsoft/WSL/issues/6565
     exit 0
 fi
 
 # Open file/link with https://github.com/wslutilities/wslu.
-wslview "$*"
+wslview "$WINDOWS_PATH"
