@@ -13,7 +13,7 @@ SUMMARY="$(grep -Pom1 '(?<=^# )\w+.*' "${BASH_SOURCE[0]}")"
 date -ud@$SECONDS &> /dev/null && alias ts='date -ud@$SECONDS +%T' || alias ts='date -ur$SECONDS +%T'
 
 # General variables/aliases.
-declare -a TIMESTAMPS  # Array of floats representing seconds to split on.
+declare -a TIMESTAMPS=()  # Array of floats representing seconds to split on.
 KEYFRAME_FORWARD_SEARCH=10.0  # How far ahead of the requested timestamp to search for keyframes.
 
 # CLI variables.
@@ -40,7 +40,6 @@ usage() {
         echo 'FILE_PATH is the path to the file to split.'
         echo 'TIMESTAMP is one or more timestamps (00:00 or 000 seconds) to split by. msplit'
         echo 'will actually split on the next keyframe if a timestamp is not exactly on one.'
-        echo 'On macOS install ffmpeg with: "brew install ffmpeg --with-x265"'
         echo -e "\\nOptions:"
         echo '  -s, --show      Show the last split file in Finder after splitting.'
     fi
