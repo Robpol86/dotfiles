@@ -31,6 +31,7 @@ bindkey "^W" backward-kill-word-bash && zle -N "$_"
 alias lower="tr '[:upper:]' '[:lower:]'"
 alias upper="tr '[:lower:]' '[:upper:]'"
 if [ -n "${WSL_DISTRO_NAME:-}" ]; then
+    alias path2win="xargs --delimiter=$'\n' --max-args=1 wslpath -w"
     alias pbcopy="xsel -i --clipboard"
     alias pbpaste="xsel -o --clipboard"
 fi
