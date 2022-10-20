@@ -21,6 +21,7 @@ function _robpol86_run_once {
     git config --global core.editor vim
     git config --global core.excludesfile ~/.gitignore
     git config --global diff.tool vimdiff
+    git config --global init.defaultBranch main
     git config --global merge.tool vimdiff
     git config --global rerere.enabled true
     git config --global user.email robpol86@gmail.com
