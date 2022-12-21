@@ -44,7 +44,7 @@ fi
 
 # Open file with https://github.com/wslutilities/wslu.
 if [ -e "$*" ]; then
-    # Is file and it exists.
+    # Path exists locally.
     wslview "$(wslpath -w "$*" 2>/dev/null)"
 else
     # Might be link.
