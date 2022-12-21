@@ -42,11 +42,11 @@ if [ "$REVEAL" = true ]; then
     exit 0
 fi
 
-# Open file/link with https://github.com/wslutilities/wslu.
-if windows_path="$(wslpath -w "$*" 2>/dev/null)"; then
-    # Is file and it exists.
-    wslview "$windows_path"
+# Open file with https://github.com/wslutilities/wslu.
+if [ -e "$*" ]; then
+    # Path exists locally.
+    wslview "$(wslpath -w "$*" 2>/dev/null)"
 else
-    # Might be link, wslview will fail if it's a file/dir that doesn't exist.
+    # Might be link.
     wslview "$*"
 fi
